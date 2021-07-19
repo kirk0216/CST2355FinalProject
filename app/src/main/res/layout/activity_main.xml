@@ -14,10 +14,18 @@
         android:id="@+id/SelectDateButton"
         android:text="@string/SelectDateButtonText" />
 
-    <ListView
+    <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/SelectDateButton"
+        style="?android:progressBarStyleHorizontal"
+        android:visibility="gone"
+        android:id="@+id/SelectDateProgressBar" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SelectDateProgressBar"
 
         android:id="@+id/ImageList" />
 

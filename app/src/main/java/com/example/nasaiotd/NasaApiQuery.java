@@ -1,7 +1,11 @@
 package com.example.nasaiotd;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,14 +18,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 
+/**
+ * Performs HTTP requests to the NASA Image of the Day API.
+ */
 public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
     private static final String LOG_TAG = "NASA_API_QUERY";
     private static final String API_URL = "https://api.nasa.gov/planetary/apod?api_key=AD83pecRZgvpNZRi1pfDdCruHXIvCV7KGjBI2j0B";
 
+    private final Activity context;
     private final ImagesAdapter imagesAdapter;
+    private String errorMessage;
 
-    public NasaApiQuery(ImagesAdapter imagesAdapter) {
+    public NasaApiQuery(Activity context, ImagesAdapter imagesAdapter) {
+        this.context = context;
         this.imagesAdapter = imagesAdapter;
     }
 
@@ -61,11 +71,25 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
             JSONObject jsonData = new JSONObject(result);
 
+            final int progressStep = jsonData.has("hdurl") ? 100 / 6 : 100 / 5;
+
             String imageDate = jsonData.getString("date");
+            publishProgress(progressStep);
+
             String imageTitle = jsonData.getString("title");
+            publishProgress(progressStep * 2);
+
             String imageExplanation = jsonData.getString("explanation");
+            publishProgress(progressStep * 3);
+
             String imageUrl = jsonData.getString("url");
-            String imageHdUrl = jsonData.getString("hdurl");
+            publishProgress(progressStep * 4);
+
+            String imageHdUrl = "";
+            if (jsonData.has("hdurl")) {
+                imageHdUrl = jsonData.getString("hdurl");
+                publishProgress(progressStep * 5);
+            }
 
             imageData = new ImageData(imageDate, imageTitle, imageExplanation, imageUrl, imageHdUrl);
 
@@ -75,6 +99,8 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         }
         catch (IOException | JSONException e) {
             e.printStackTrace();
+
+            errorMessage = e.getMessage();
         }
 
         return imageData;
@@ -83,13 +109,35 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
+
+        int progress = values[0];
+
+        ProgressBar progressBar = context.findViewById(R.id.SelectDateProgressBar);
+        progressBar.setProgress(progress);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     protected void onPostExecute(ImageData imageData) {
         super.onPostExecute(imageData);
 
-        imagesAdapter.add(imageData);
-        imagesAdapter.notifyDataSetChanged();
+        if (imageData != null) {
+            imagesAdapter.add(imageData);
+            imagesAdapter.notifyDataSetChanged();
+        }
+        else {
+            Log.i(LOG_TAG, "ImageData was not set: " + errorMessage);
+
+            if (errorMessage == null) {
+                errorMessage = "Unknown error.";
+            }
+
+            Toast.makeText(context, "Image could not be retrieved: " + errorMessage,
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+
+        ProgressBar progressBar = context.findViewById(R.id.SelectDateProgressBar);
+        progressBar.setVisibility(ProgressBar.GONE);
     }
 }
