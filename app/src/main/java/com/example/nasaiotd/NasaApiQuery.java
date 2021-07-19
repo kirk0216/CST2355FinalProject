@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -13,11 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -27,7 +30,7 @@ import java.util.Arrays;
 public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
     private static final String LOG_TAG = "NASA_API_QUERY";
-    private static final String API_URL = "https://api.nasa.gov/planetary/apod?api_key=AD83pecRZgvpNZRi1pfDdCruHXIvCV7KGjBI2j0B";
+    private static final String API_URL = "https://api.nasa.gov/planetary/apod?api_key=AD83pecRZgvpNZRi1pfDdCruHXIvCV7KGjBI2j0B&thumbs=true";
 
     private final Activity context;
     private final ProgressBar progressBar;
@@ -110,7 +113,20 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
             imageData = new ImageData(imageDate, imageTitle, imageExplanation, imageUrl, imageHdUrl);
 
-            Bitmap image = retrieveImage(imageData.getUrl());
+            String mediaType = jsonData.getString("media_type");
+            Bitmap image = null;
+
+            if (mediaType.equalsIgnoreCase("image")) {
+                image = retrieveImage(imageData.getUrl());
+            }
+            else {
+                if (jsonData.has("thumbnail_url")) {
+                    Log.i(LOG_TAG, "Fetching thumbnail for type: " + mediaType);
+
+                    String thumbnailUrl = jsonData.getString("thumbnail_url");
+                    image = retrieveImage(thumbnailUrl);
+                }
+            }
 
             if (image != null) {
                 imageData.setImage(image);
@@ -164,9 +180,56 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         progressBar.setVisibility(ProgressBar.GONE);
     }
 
+    /**
+     * Retrieves an image from either a remote source or local storage.
+     * @param urlString The URL for the image.
+     * @return A bitmap image.
+     */
     private Bitmap retrieveImage(String urlString) {
         Bitmap image = null;
         Log.i(LOG_TAG, "Loading: " + urlString);
+
+        String fileName = URLUtil.guessFileName(urlString, null, null);
+
+        if (fileExists(fileName)) {
+            Log.i(LOG_TAG, "Loading " + fileName + " from local storage.");
+            image = getImageFromLocal(fileName);
+        }
+        else {
+            Log.i(LOG_TAG, "Loading " + fileName + " from remote source.");
+            image = getImageFromRemote(urlString);
+        }
+
+        return image;
+    }
+
+    /**
+     * Retrieves an image from the local file system.
+     * @param fileName The name of the saved image file.
+     * @return Bitmap image.
+     */
+    private Bitmap getImageFromLocal(String fileName) {
+        Bitmap image = null;
+        FileInputStream inputStream = null;
+
+        try {
+            inputStream = context.openFileInput(fileName);
+            image = BitmapFactory.decodeStream(inputStream);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
+
+    /**
+     * Retrieves an image from the specified URL.
+     * @param urlString The URL to an image.
+     * @return Bitmap image.
+     */
+    private Bitmap getImageFromRemote(String urlString) {
+        Bitmap image = null;
 
         try {
             URL url = new URL(urlString);
@@ -180,10 +243,41 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
                 image = BitmapFactory.decodeStream(connection.getInputStream());
             }
 
+            if (image != null) {
+                saveImage(urlString, image);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return image;
+    }
+
+    /**
+     * Saves the provided bitmap image to local storage.
+     * @param urlString The URL the file was retrieved from.
+     * @param image The bitmap image that will be saved.
+     */
+    private void saveImage(String urlString, Bitmap image) {
+        try {
+            String fileName = URLUtil.guessFileName(urlString, null, null);
+
+            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Checks if a file exists in local storage.
+     * @param fileName The name of the file.
+     * @return True if file exists, false if it does not.
+     */
+    private boolean fileExists(String fileName) {
+        File file = context.getBaseContext().getFileStreamPath(fileName);
+        return file.exists();
     }
 }

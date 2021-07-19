@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 hideKeyboard();
             });
 
+            Bundle dateData = new Bundle();
+            dateData.putString("date", dateInput.getText().toString());
+            fragment.setArguments(dateData);
+
             fragment.show(getSupportFragmentManager(), "datePicker");
         });
 

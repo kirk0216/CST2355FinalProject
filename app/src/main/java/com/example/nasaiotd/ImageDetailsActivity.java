@@ -1,13 +1,22 @@
 package com.example.nasaiotd;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.URLUtil;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class ImageDetailsActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = "IMAGE_DETAILS_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +26,10 @@ public class ImageDetailsActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         String urlString = data.getString("url");
         String hdUrlString = data.getString("hdUrl");
+
+        ImageView image = findViewById(R.id.ImageDetailsImage);
+        Bitmap bitmap = loadImage(urlString);
+        image.setImageBitmap(bitmap);
 
         TextView dateText = findViewById(R.id.ImageDetailsDate);
         dateText.setText(data.getString("date"));
@@ -52,5 +65,21 @@ public class ImageDetailsActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    private Bitmap loadImage(String urlString) {
+        Bitmap image = null;
+        FileInputStream inputStream = null;
+        String fileName = URLUtil.guessFileName(urlString, null, null);
+
+        try {
+            inputStream = openFileInput(fileName);
+            image = BitmapFactory.decodeStream(inputStream);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
     }
 }

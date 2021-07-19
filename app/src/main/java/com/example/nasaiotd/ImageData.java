@@ -2,8 +2,6 @@ package com.example.nasaiotd;
 
 import android.graphics.Bitmap;
 
-import java.util.Date;
-
 public class ImageData {
     private String date;
 
