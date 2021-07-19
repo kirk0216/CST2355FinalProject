@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public class ImagesAdapter extends BaseAdapter {
         ImageData imageData = images.get(position);
 
         View view = layoutInflater.inflate(R.layout.imagelist_item, parent, false);
+
+        ImageView imageImage = view.findViewById(R.id.ImageListItemImage);
+        imageImage.setImageBitmap(imageData.getImage());
 
         TextView imageDate = view.findViewById(R.id.ImageDate);
         imageDate.setText(imageData.getDate());

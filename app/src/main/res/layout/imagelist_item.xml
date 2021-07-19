@@ -2,18 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/ImageTitle" />
+        android:minHeight="100dp"
+        android:maxHeight="150dp"
+        android:minWidth="100dp"
+        android:maxWidth="150dp"
+        android:adjustViewBounds="true"
+        android:id="@+id/ImageListItemImage"/>
 
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ImageTitle"
-        android:id="@+id/ImageDate" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/ImageListItemImage"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:id="@+id/ImageListItemInformation">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ImageTitle" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ImageDate" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.example.nasaiotd;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class ImageData {
@@ -9,6 +11,8 @@ public class ImageData {
     private String explanation;
 
     private String url;
+    private Bitmap image;
+
     private String hdUrl;
 
     public ImageData(String date, String title, String explanation, String url, String hdUrl) {
@@ -33,6 +37,14 @@ public class ImageData {
 
     public String getUrl() {
         return url;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public String getHdUrl() {
