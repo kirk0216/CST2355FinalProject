@@ -2,4 +2,7 @@
     <string name="app_name">NASA Image of the Day</string>
 
     <string name="SelectDateButtonText">Select Date</string>
+    <string name="FetchImageButtonText">Fetch Image Data</string>
+
+    <string name="DateInputHint">YYYY-MM-DD</string>
 </resources>

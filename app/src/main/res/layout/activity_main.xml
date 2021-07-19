@@ -4,20 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/DateSelection">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DateInput"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/SelectDateButton"
+            android:inputType="date"
+            android:hint="@string/DateInputHint" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="fill_horizontal"
+            android:id="@+id/SelectDateButton"
+            android:text="@string/SelectDateButtonText" />
+    </RelativeLayout>
+
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/DateSelection"
 
-        android:id="@+id/SelectDateButton"
-        android:text="@string/SelectDateButtonText" />
+        android:id="@+id/FetchImageButton"
+        android:text="@string/FetchImageButtonText" />
 
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/SelectDateButton"
+        android:layout_below="@id/FetchImageButton"
         style="?android:progressBarStyleHorizontal"
         android:visibility="gone"
         android:id="@+id/SelectDateProgressBar" />

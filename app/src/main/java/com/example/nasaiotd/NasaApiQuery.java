@@ -27,11 +27,13 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
     private static final String API_URL = "https://api.nasa.gov/planetary/apod?api_key=AD83pecRZgvpNZRi1pfDdCruHXIvCV7KGjBI2j0B";
 
     private final Activity context;
+    private final ProgressBar progressBar;
     private final ImagesAdapter imagesAdapter;
     private String errorMessage;
 
     public NasaApiQuery(Activity context, ImagesAdapter imagesAdapter) {
         this.context = context;
+        this.progressBar = context.findViewById(R.id.SelectDateProgressBar);
         this.imagesAdapter = imagesAdapter;
     }
 
@@ -51,6 +53,9 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         ImageData imageData = null;
 
         try {
+            final int sleepTime = 100;
+            publishProgress(0);
+
             String urlString = String.format("%s&date=%s", API_URL, date);
             Log.i(LOG_TAG, urlString);
 
@@ -58,6 +63,8 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             InputStream response = connection.getInputStream();
+            publishProgress(25);
+            Thread.sleep(sleepTime);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"));
             StringBuilder sb = new StringBuilder();
@@ -69,26 +76,33 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
             String result = sb.toString();
 
+            publishProgress(50);
+            Thread.sleep(sleepTime);
+
             JSONObject jsonData = new JSONObject(result);
 
-            final int progressStep = jsonData.has("hdurl") ? 100 / 6 : 100 / 5;
+            final int progressStep = jsonData.has("hdurl") ? 50 / 5 : 50 / 4;
 
             String imageDate = jsonData.getString("date");
-            publishProgress(progressStep);
+            publishProgress(50 + progressStep);
+            Thread.sleep(sleepTime);
 
             String imageTitle = jsonData.getString("title");
-            publishProgress(progressStep * 2);
+            publishProgress(50 + progressStep * 2);
+            Thread.sleep(sleepTime);
 
             String imageExplanation = jsonData.getString("explanation");
-            publishProgress(progressStep * 3);
+            publishProgress(50 + progressStep * 3);
+            Thread.sleep(sleepTime);
 
             String imageUrl = jsonData.getString("url");
-            publishProgress(progressStep * 4);
+            publishProgress(50 + progressStep * 4);
+            Thread.sleep(sleepTime);
 
             String imageHdUrl = "";
             if (jsonData.has("hdurl")) {
                 imageHdUrl = jsonData.getString("hdurl");
-                publishProgress(progressStep * 5);
+                publishProgress(50 + progressStep * 5);
             }
 
             imageData = new ImageData(imageDate, imageTitle, imageExplanation, imageUrl, imageHdUrl);
@@ -97,7 +111,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
             response.close();
             connection.disconnect();
         }
-        catch (IOException | JSONException e) {
+        catch (IOException | JSONException | InterruptedException e) {
             e.printStackTrace();
 
             errorMessage = e.getMessage();
@@ -112,9 +126,10 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
         int progress = values[0];
 
-        ProgressBar progressBar = context.findViewById(R.id.SelectDateProgressBar);
         progressBar.setProgress(progress);
         progressBar.setVisibility(ProgressBar.VISIBLE);
+
+        Log.v(LOG_TAG, "Progress: " + progress);
     }
 
     @Override
@@ -137,7 +152,6 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
                     .show();
         }
 
-        ProgressBar progressBar = context.findViewById(R.id.SelectDateProgressBar);
         progressBar.setVisibility(ProgressBar.GONE);
     }
 }
