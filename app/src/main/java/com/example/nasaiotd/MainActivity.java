@@ -1,5 +1,6 @@
 package com.example.nasaiotd;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -11,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -27,6 +30,34 @@ public class MainActivity extends AppCompatActivity {
 
         ListView imagesList = findViewById(R.id.ImageList);
         imagesList.setAdapter(imagesAdapter);
+
+        imagesList.setOnItemLongClickListener((list, view, position, id) -> {
+            ImageData image = (ImageData)imagesAdapter.getItem(position);
+
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder
+                    .setTitle(R.string.ImageListDeleteTitle)
+                    .setMessage(image.getTitle())
+                    .setPositiveButton(R.string.ImageListDeleteYes, (click, arg) -> {
+                        imagesAdapter.removeAt(position);
+                        imagesAdapter.notifyDataSetChanged();
+
+                        Snackbar
+                            .make(imagesList, image.getTitle() + " deleted.", Snackbar.LENGTH_SHORT)
+                            .setAction(R.string.ImageListDeleteUndo, v -> {
+                                imagesAdapter.insertAt(position, image);
+                                imagesAdapter.notifyDataSetChanged();
+                            })
+                            .show();
+                    })
+                    .setNegativeButton(R.string.ImageListDeleteNo, (click, arg) -> {
+
+                    })
+                    .create()
+                    .show();
+
+            return true;
+        });
 
         imagesList.setOnItemClickListener((list, view, position, id) -> {
             ImageData imageData = (ImageData) imagesAdapter.getItem(position);

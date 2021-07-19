@@ -19,8 +19,24 @@ public class ImagesAdapter extends BaseAdapter {
         this.layoutInflater = layoutInflater;
     }
 
+    /**
+     * Adds a new ImageData object.
+     * @param image The ImageData object to add.
+     */
     public void add(ImageData image) {
         images.add(image);
+    }
+
+    public void insertAt(int position, ImageData image) {
+        images.add(position, image);
+    }
+
+    /**
+     * Removes the ImageData at index position.
+     * @param position The index in the array of the item.
+     */
+    public void removeAt(int position) {
+        images.remove(position);
     }
 
     @Override

@@ -5,4 +5,9 @@
     <string name="FetchImageButtonText">Fetch Image Data</string>
 
     <string name="DateInputHint">YYYY-MM-DD</string>
+
+    <string name="ImageListDeleteTitle">Do you want to delete this image?</string>
+    <string name="ImageListDeleteYes">Yes</string>
+    <string name="ImageListDeleteNo">No</string>
+    <string name="ImageListDeleteUndo">Undo</string>
 </resources>
