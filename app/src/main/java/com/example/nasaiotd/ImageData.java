@@ -2,15 +2,36 @@ package com.example.nasaiotd;
 
 import android.graphics.Bitmap;
 
+/**
+ * Represents a NASA Image of the Day entry.
+ */
 public class ImageData {
+    /**
+     * The date the image was the Image of the Day.
+     */
     private String date;
 
+    /**
+     * The title of the image.
+     */
     private String title;
+    /**
+     * A description of the image.
+     */
     private String explanation;
 
+    /**
+     * The URL where the image can be accessed.
+     */
     private String url;
+    /**
+     * A bitmap copy of the image.
+     */
     private Bitmap image;
 
+    /**
+     * The URL to a high-definition copy of the image.
+     */
     private String hdUrl;
 
     public ImageData(String date, String title, String explanation, String url, String hdUrl) {

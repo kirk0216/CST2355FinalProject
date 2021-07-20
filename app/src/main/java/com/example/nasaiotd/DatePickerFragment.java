@@ -32,6 +32,9 @@ public class DatePickerFragment extends DialogFragment
         callback.onDateSelected(dateString);
     }
 
+    /**
+     * A callback used to get the selected date as a YYYY-MM-DD string.
+     */
     public interface DateSelectedListener {
         void onDateSelected(String date);
     }

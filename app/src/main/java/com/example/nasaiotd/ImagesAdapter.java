@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of BaseAdapter used to provide a list of ImageData objects to a ListView.
+ */
 public class ImagesAdapter extends BaseAdapter {
 
     private final LayoutInflater layoutInflater;
@@ -27,8 +30,13 @@ public class ImagesAdapter extends BaseAdapter {
         images.add(image);
     }
 
-    public void insertAt(int position, ImageData image) {
-        images.add(position, image);
+    /**
+     * Adds a new ImageData object at the specified index.
+     * @param index The index where the object should be inserted.
+     * @param image The ImageData object to add.
+     */
+    public void insertAt(int index, ImageData image) {
+        images.add(index, image);
     }
 
     /**

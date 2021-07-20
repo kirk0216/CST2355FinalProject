@@ -29,12 +29,27 @@ import java.util.Arrays;
  */
 public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
+    /**
+     * Tag used to filter during logging.
+     */
     private static final String LOG_TAG = "NASA_API_QUERY";
+    /**
+     * NASA Image of the Day API URL
+     */
     private static final String API_URL = "https://api.nasa.gov/planetary/apod?api_key=AD83pecRZgvpNZRi1pfDdCruHXIvCV7KGjBI2j0B&thumbs=true";
 
+    /**
+     * Activity that is using the API. Used to show Toast and access file system.
+     */
     private final Activity context;
+    /**
+     * Reference to the progress bar associated with this request, so the UI can be updated.
+     */
     private final ProgressBar progressBar;
     private final ImagesAdapter imagesAdapter;
+    /**
+     * A string containing any error messages, so the user can be advised of errors.
+     */
     private String errorMessage;
 
     public NasaApiQuery(Activity context, ImagesAdapter imagesAdapter) {
@@ -55,6 +70,11 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         return imageData;
     }
 
+    /**
+     * Retrieves image data from the NASA API, and downloads the associated image.
+     * @param date The requested date to query for.
+     * @return An ImageData object representing the information from the API.
+     */
     private ImageData getImageData(String date) {
         ImageData imageData = null;
 
@@ -225,8 +245,8 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
     /**
      * Retrieves an image from the specified URL.
-     * @param urlString The URL to an image.
-     * @return Bitmap image.
+     * @param urlString The remote URL where the image is located.
+     * @return The bitmap located at the specified URL.
      */
     private Bitmap getImageFromRemote(String urlString) {
         Bitmap image = null;

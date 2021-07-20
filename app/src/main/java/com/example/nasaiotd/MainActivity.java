@@ -19,6 +19,9 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * An instance of ImagesAdapter that backs ImagesList.
+     */
     private ImagesAdapter imagesAdapter;
 
     @Override
@@ -102,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * @return The current date in "YYYY-MM-DD" format.
+     */
     private String getCurrentDateString() {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
