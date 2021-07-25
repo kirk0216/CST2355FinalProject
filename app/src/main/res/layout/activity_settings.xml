@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:id="@+id/MainToolBar"
         android:background="@color/design_default_color_primary_variant"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="@string/MainTitle"
+        app:title="@string/SettingsTitle"
         tools:openDrawer="start" />
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -31,49 +31,32 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/DateSelection">
+                android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/DateInput"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/SelectDateButton"
-                    android:inputType="date"
-                    android:hint="@string/DateInputHint" />
+                    android:text="@string/SettingsCachedImageCountLabel" />
 
-                <Button
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_gravity="fill_horizontal"
-                    android:id="@+id/SelectDateButton"
-                    android:text="@string/SelectDateButtonText" />
+                    android:id="@+id/SettingsCachedImageCount" />
+
             </RelativeLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/DateSelection"
+                android:id="@+id/SettingsDeleteCachedImages"
+                android:text="@string/SettingsDeleteCachedImagesText" />
 
-                android:id="@+id/FetchImageButton"
-                android:text="@string/FetchImageButtonText" />
-
-            <ProgressBar
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/FetchImageButton"
-                style="?android:progressBarStyleHorizontal"
-                android:visibility="gone"
-                android:id="@+id/SelectDateProgressBar" />
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/SelectDateProgressBar"
-
-                android:id="@+id/ImageList" />
+                android:id="@+id/SettingsDeleteSavedData"
+                android:text="@string/SettingsDeleteSavedDataText" />
 
         </LinearLayout>
 

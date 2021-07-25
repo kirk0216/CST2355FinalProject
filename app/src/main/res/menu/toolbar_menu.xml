@@ -2,16 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/ToolbarHelp"
+        android:title="@string/ToolbarHelpText"
+        android:icon="@drawable/help"
+        android:orderInCategory="0"
+        app:showAsAction="always" />
+
     <item android:id="@+id/ToolbarHome"
         android:title="@string/ToolbarHomeText"
         android:icon="@drawable/home"
-        android:orderInCategory="0"
+        android:orderInCategory="1"
         app:showAsAction="always" />
 
     <item android:id="@+id/ToolbarSettings"
         android:title="@string/ToolbarSettingsText"
         android:icon="@drawable/settings"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom" />
 
 </menu>

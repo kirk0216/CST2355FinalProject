@@ -21,14 +21,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends ActivityBase {
 
     private static final String LOG_TAG = "NASA_MAIN";
 
@@ -44,19 +44,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolBar = findViewById(R.id.MainToolBar);
-        setSupportActionBar(toolBar);
-
-        navigationDrawer = findViewById(R.id.MainNavigationDrawer);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, navigationDrawer,
-                toolBar, R.string.NavigationOpen, R.string.NavigationClose);
-
-        navigationDrawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.MainNavigation);
-        navigationView.setNavigationItemSelectedListener(this);
+        setupNavigation(R.string.MainTitle);
 
         imagesAdapter = new ImagesAdapter(getLayoutInflater());
 
@@ -134,38 +122,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ToolbarHome:
-                Log.v(LOG_TAG, "Clicked home in toolbar.");
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Closes the navigation drawer, if it's open, when the back button is pressed.
-     * If the navigation drawer is closed, normal back button behaviour.
-     * https://stackoverflow.com/a/26833916
-     */
-    @Override
-    public void onBackPressed() {
-        if (navigationDrawer.isDrawerOpen(GravityCompat.START)) {
-            navigationDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     /**
      * @return The current date in "YYYY-MM-DD" format.
      */
@@ -191,18 +147,5 @@ public class MainActivity extends AppCompatActivity
         }
 
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.NavigationHomeItem:
-                Log.v(LOG_TAG, "Clicked home in navigation.");
-                break;
-        }
-
-        navigationDrawer.closeDrawer(GravityCompat.START);
-        return false;
     }
 }

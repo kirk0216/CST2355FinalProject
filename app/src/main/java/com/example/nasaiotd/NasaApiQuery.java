@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -97,7 +98,8 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line);
+                sb.append("\n");
             }
 
             String result = sb.toString();
@@ -137,14 +139,14 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
             Bitmap image = null;
 
             if (mediaType.equalsIgnoreCase("image")) {
-                image = retrieveImage(imageData.getUrl());
+                image = retrieveImage(imageData.getUrl(), imageData.getDate());
             }
             else {
                 if (jsonData.has("thumbnail_url")) {
                     Log.i(LOG_TAG, "Fetching thumbnail for type: " + mediaType);
 
                     String thumbnailUrl = jsonData.getString("thumbnail_url");
-                    image = retrieveImage(thumbnailUrl);
+                    image = retrieveImage(thumbnailUrl, imageData.getDate());
                 }
             }
 
@@ -205,11 +207,13 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
      * @param urlString The URL for the image.
      * @return A bitmap image.
      */
-    private Bitmap retrieveImage(String urlString) {
+    private Bitmap retrieveImage(String urlString, String date) {
         Bitmap image = null;
         Log.i(LOG_TAG, "Loading: " + urlString);
 
-        String fileName = URLUtil.guessFileName(urlString, null, null);
+        // https://stackoverflow.com/a/49690119
+        String extension = MimeTypeMap.getFileExtensionFromUrl(urlString);
+        String fileName = date + "." + extension;
 
         if (fileExists(fileName)) {
             Log.i(LOG_TAG, "Loading " + fileName + " from local storage.");
@@ -217,7 +221,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         }
         else {
             Log.i(LOG_TAG, "Loading " + fileName + " from remote source.");
-            image = getImageFromRemote(urlString);
+            image = getImageFromRemote(urlString, fileName);
         }
 
         return image;
@@ -248,7 +252,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
      * @param urlString The remote URL where the image is located.
      * @return The bitmap located at the specified URL.
      */
-    private Bitmap getImageFromRemote(String urlString) {
+    private Bitmap getImageFromRemote(String urlString, String fileName) {
         Bitmap image = null;
 
         try {
@@ -264,7 +268,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
             }
 
             if (image != null) {
-                saveImage(urlString, image);
+                saveImage(fileName, image);
             }
 
         } catch (IOException e) {
@@ -276,13 +280,11 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
     /**
      * Saves the provided bitmap image to local storage.
-     * @param urlString The URL the file was retrieved from.
+     * @param fileName The file name to save the image at.
      * @param image The bitmap image that will be saved.
      */
-    private void saveImage(String urlString, Bitmap image) {
+    private void saveImage(String fileName, Bitmap image) {
         try {
-            String fileName = URLUtil.guessFileName(urlString, null, null);
-
             FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
             outputStream.flush();
