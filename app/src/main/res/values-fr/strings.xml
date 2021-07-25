@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="AppName">NASA Image du Jour</string>
+    <string name="AppVersion">Version 1.0</string>
+
+    <string name="SelectDateButtonText">Sélectionner une date</string>
+    <string name="FetchImageButtonText">Obtenir des données d\'image</string>
+
+    <string name="DateInputHint">YYYY-MM-DD</string>
+
+    <string name="ImageListDeleteTitle">Voulez-vous supprimer cette image ?</string>
+    <string name="ImageListDeleteYes">Oui</string>
+    <string name="ImageListDeleteNo">Non</string>
+    <string name="ImageListDeleteUndo">Annuler</string>
+
+    <!-- Navigation Menu -->
+    <string name="NavigationHomeText">Accueil</string>
+    <string name="NavigationGalleryText">Galerie</string>
+    <string name="NavigationSettingsText">Paramètres</string>
+    <string name="NavigationOpen">Ouvert</string>
+    <string name="NavigationClose">Fermer</string>
+
+    <!-- Toolbar Items -->
+    <string name="ToolbarHomeText">Accueil</string>
+    <string name="ToolbarGalleryText">Galerie</string>
+    <string name="ToolbarSettingsText">Paramètres</string>
+    <string name="ToolbarHelpText">Aide</string>
+
+    <!-- Toolbar Titles -->
+    <string name="MainTitle">Accueil</string>
+    <string name="GalleryTitle">Galerie</string>
+    <string name="DetailsTitle">Détails de l\'image</string>
+    <string name="SettingsTitle">Paramètres</string>
+
+    <!-- Help Dialog -->
+    <string name="HelpTitle">Aide</string>
+    <string name="HelpOkay">D\'accord</string>
+
+    <!-- Settings -->
+    <string name="SettingsCachedImageCountLabel">Nombre d\'images mises en cache: </string>
+    <string name="SettingsDeleteCachedImagesText">Supprimer les images mises en cache</string>
+    <string name="SettingsDeleteSavedDataText">Supprimer les données enregistrées</string>
+</resources>
