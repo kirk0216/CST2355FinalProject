@@ -66,6 +66,10 @@ public abstract class ActivityBase extends AppCompatActivity
                 Log.i(LOG_TAG, "Navigating to Settings via Toolbar.");
                 intent = new Intent(ActivityBase.this, SettingsActivity.class);
                 break;
+            case R.id.ToolbarHelp:
+                Log.i(LOG_TAG, "Showing help for: " + ActivityBase.this.getClass().getName());
+                showHelp();
+                break;
         }
 
         if (intent != null) {
@@ -74,6 +78,8 @@ public abstract class ActivityBase extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected abstract void showHelp();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

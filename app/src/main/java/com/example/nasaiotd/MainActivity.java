@@ -148,4 +148,32 @@ public class MainActivity extends ActivityBase {
 
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    @Override
+    protected void showHelp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Enter a date into the input field in YYYY-MM-DD format.");
+        stringBuilder.append("\n\n");
+
+        stringBuilder.append("Press ");
+        stringBuilder.append(getResources().getString(R.string.SelectDateButtonText));
+        stringBuilder.append(" to show a calendar for selecting a date.");
+        stringBuilder.append("\n\n");
+
+        stringBuilder.append("Press ");
+        stringBuilder.append(getResources().getString(R.string.FetchImageButtonText));
+        stringBuilder.append(" to fetch the image for the selected date.");
+        stringBuilder.append("\n\n");
+
+        builder
+                .setTitle(R.string.HelpTitle)
+                .setMessage(stringBuilder.toString())
+                .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
+
+                })
+                .create()
+                .show();
+    }
 }

@@ -27,6 +27,10 @@
     <string name="MainTitle">Home</string>
     <string name="SettingsTitle">Settings</string>
 
+    <!-- Help Dialog -->
+    <string name="HelpTitle">Help</string>
+    <string name="HelpOkay">Ok</string>
+
     <!-- Settings -->
     <string name="SettingsCachedImageCountLabel">Cached Images Count: </string>
     <string name="SettingsDeleteCachedImagesText">Delete Cached Images</string>
