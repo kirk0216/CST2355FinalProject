@@ -10,4 +10,14 @@
     <string name="ImageListDeleteYes">Yes</string>
     <string name="ImageListDeleteNo">No</string>
     <string name="ImageListDeleteUndo">Undo</string>
+
+    <!-- Navigation Menu -->
+    <string name="NavigationHomeText">Home</string>
+    <string name="NavigationSettingsText">Settings</string>
+    <string name="NavigationOpen">Open</string>
+    <string name="NavigationClose">Close</string>
+
+    <!-- Toolbar -->
+    <string name="ToolbarHomeText">Home</string>
+    <string name="ToolbarSettingsText">Settings</string>
 </resources>

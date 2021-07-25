@@ -1,33 +1,62 @@
 package com.example.nasaiotd;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String LOG_TAG = "NASA_MAIN";
 
     /**
      * An instance of ImagesAdapter that backs ImagesList.
      */
     private ImagesAdapter imagesAdapter;
 
+    private DrawerLayout navigationDrawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolBar = findViewById(R.id.MainToolBar);
+        setSupportActionBar(toolBar);
+
+        navigationDrawer = findViewById(R.id.MainNavigationDrawer);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, navigationDrawer,
+                toolBar, R.string.NavigationOpen, R.string.NavigationClose);
+
+        navigationDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.MainNavigation);
+        navigationView.setNavigationItemSelectedListener(this);
 
         imagesAdapter = new ImagesAdapter(getLayoutInflater());
 
@@ -105,6 +134,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ToolbarHome:
+                Log.v(LOG_TAG, "Clicked home in toolbar.");
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Closes the navigation drawer, if it's open, when the back button is pressed.
+     * If the navigation drawer is closed, normal back button behaviour.
+     * https://stackoverflow.com/a/26833916
+     */
+    @Override
+    public void onBackPressed() {
+        if (navigationDrawer.isDrawerOpen(GravityCompat.START)) {
+            navigationDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /**
      * @return The current date in "YYYY-MM-DD" format.
      */
@@ -130,5 +191,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.NavigationHomeItem:
+                Log.v(LOG_TAG, "Clicked home in navigation.");
+                break;
+        }
+
+        navigationDrawer.closeDrawer(GravityCompat.START);
+        return false;
     }
 }
