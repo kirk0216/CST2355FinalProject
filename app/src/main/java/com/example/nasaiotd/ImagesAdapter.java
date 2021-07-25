@@ -16,10 +16,12 @@ import java.util.List;
 public class ImagesAdapter extends BaseAdapter {
 
     private final LayoutInflater layoutInflater;
-    private final List<ImageData> images = new ArrayList<ImageData>();
+    private final int layoutResourceId;
+    private static final List<ImageData> images = new ArrayList<ImageData>();
 
-    public ImagesAdapter(LayoutInflater layoutInflater) {
+    public ImagesAdapter(LayoutInflater layoutInflater, int layoutResourceId) {
         this.layoutInflater = layoutInflater;
+        this.layoutResourceId = layoutResourceId;
     }
 
     /**
@@ -66,16 +68,20 @@ public class ImagesAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageData imageData = images.get(position);
 
-        View view = layoutInflater.inflate(R.layout.imagelist_item, parent, false);
+        View view = layoutInflater.inflate(layoutResourceId, parent, false);
 
         ImageView imageImage = view.findViewById(R.id.ImageListItemImage);
         imageImage.setImageBitmap(imageData.getImage());
 
         TextView imageDate = view.findViewById(R.id.ImageDate);
-        imageDate.setText(imageData.getDate());
+        if (imageDate != null) {
+            imageDate.setText(imageData.getDate());
+        }
 
         TextView imageTitle = view.findViewById(R.id.ImageTitle);
-        imageTitle.setText(imageData.getTitle());
+        if (imageTitle != null) {
+            imageTitle.setText(imageData.getTitle());
+        }
 
         return view;
     }

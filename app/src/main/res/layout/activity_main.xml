@@ -12,8 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/MainToolBar"
-        android:background="@color/design_default_color_primary_variant"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="@string/MainTitle"
         tools:openDrawer="start" />
 

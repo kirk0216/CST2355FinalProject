@@ -1,7 +1,6 @@
 package com.example.nasaiotd;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +61,10 @@ public abstract class ActivityBase extends AppCompatActivity
                 Log.i(LOG_TAG, "Navigating to Home via Toolbar.");
                 intent = new Intent(ActivityBase.this, MainActivity.class);
                 break;
+            case R.id.ToolbarGallery:
+                Log.i(LOG_TAG, "Navigating to Gallery via Toolbar.");
+                intent = new Intent(ActivityBase.this, GalleryActivity.class);
+                break;
             case R.id.ToolbarSettings:
                 Log.i(LOG_TAG, "Navigating to Settings via Toolbar.");
                 intent = new Intent(ActivityBase.this, SettingsActivity.class);
@@ -89,6 +92,11 @@ public abstract class ActivityBase extends AppCompatActivity
             case R.id.NavigationHomeItem:
                 Log.i(LOG_TAG, "Navigating to Home via NavigationView.");
                 intent = new Intent(ActivityBase.this, MainActivity.class);
+                break;
+
+            case R.id.NavigationGalleryItem:
+                Log.i(LOG_TAG, "Navigating to Gallery via NavigationView.");
+                intent = new Intent(ActivityBase.this, GalleryActivity.class);
                 break;
 
             case R.id.NavigationSettingsItem:

@@ -46,7 +46,7 @@ public class MainActivity extends ActivityBase {
 
         setupNavigation(R.string.MainTitle);
 
-        imagesAdapter = new ImagesAdapter(getLayoutInflater());
+        imagesAdapter = new ImagesAdapter(getLayoutInflater(), R.layout.imagelist_item);
 
         ListView imagesList = findViewById(R.id.ImageList);
         imagesList.setAdapter(imagesAdapter);
@@ -166,6 +166,11 @@ public class MainActivity extends ActivityBase {
         stringBuilder.append(getResources().getString(R.string.FetchImageButtonText));
         stringBuilder.append(" to fetch the image for the selected date.");
         stringBuilder.append("\n\n");
+
+        stringBuilder.append("Click on an image to go to its details.");
+        stringBuilder.append("\n\n");
+
+        stringBuilder.append("Long click on an image to delete it.");
 
         builder
                 .setTitle(R.string.HelpTitle)

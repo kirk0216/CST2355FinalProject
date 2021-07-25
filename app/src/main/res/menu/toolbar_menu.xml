@@ -14,10 +14,16 @@
         android:orderInCategory="1"
         app:showAsAction="always" />
 
+    <item android:id="@+id/ToolbarGallery"
+        android:title="@string/ToolbarGalleryText"
+        android:icon="@drawable/gallery"
+        android:orderInCategory="2"
+        app:showAsAction="always" />
+
     <item android:id="@+id/ToolbarSettings"
         android:title="@string/ToolbarSettingsText"
         android:icon="@drawable/settings"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         app:showAsAction="ifRoom" />
 
 </menu>

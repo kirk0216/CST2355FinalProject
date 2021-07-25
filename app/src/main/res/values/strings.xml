@@ -14,17 +14,21 @@
 
     <!-- Navigation Menu -->
     <string name="NavigationHomeText">Home</string>
+    <string name="NavigationGalleryText">Gallery</string>
     <string name="NavigationSettingsText">Settings</string>
     <string name="NavigationOpen">Open</string>
     <string name="NavigationClose">Close</string>
 
     <!-- Toolbar Items -->
     <string name="ToolbarHomeText">Home</string>
+    <string name="ToolbarGalleryText">Gallery</string>
     <string name="ToolbarSettingsText">Settings</string>
     <string name="ToolbarHelpText">Help</string>
 
     <!-- Toolbar Titles -->
     <string name="MainTitle">Home</string>
+    <string name="GalleryTitle">Gallery</string>
+    <string name="DetailsTitle">Image Details</string>
     <string name="SettingsTitle">Settings</string>
 
     <!-- Help Dialog -->
