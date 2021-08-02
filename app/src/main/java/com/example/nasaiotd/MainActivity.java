@@ -66,6 +66,8 @@ public class MainActivity extends ActivityBase {
                     .setTitle(R.string.ImageListDeleteTitle)
                     .setMessage(image.getTitle())
                     .setPositiveButton(R.string.ImageListDeleteYes, (click, arg) -> {
+                        imageDao.delete(image);
+
                         imagesAdapter.removeAt(position);
                         imagesAdapter.notifyDataSetChanged();
 
@@ -74,6 +76,8 @@ public class MainActivity extends ActivityBase {
                             .setAction(R.string.ImageListDeleteUndo, v -> {
                                 imagesAdapter.insertAt(position, image);
                                 imagesAdapter.notifyDataSetChanged();
+
+                                imageDao.save(image);
                             })
                             .show();
                     })

@@ -70,6 +70,8 @@ public class GalleryActivity extends ActivityBase {
                     .setTitle(R.string.ImageListDeleteTitle)
                     .setMessage(image.getTitle())
                     .setPositiveButton(R.string.ImageListDeleteYes, (click, arg) -> {
+                        imagesDao.delete(image);
+
                         imagesAdapter.removeAt(position);
                         imagesAdapter.notifyDataSetChanged();
 
@@ -78,6 +80,8 @@ public class GalleryActivity extends ActivityBase {
                                 .setAction(R.string.ImageListDeleteUndo, v -> {
                                     imagesAdapter.insertAt(position, image);
                                     imagesAdapter.notifyDataSetChanged();
+
+                                    imagesDao.save(image);
                                 })
                                 .show();
                     })

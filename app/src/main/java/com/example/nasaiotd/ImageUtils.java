@@ -27,4 +27,8 @@ public final class ImageUtils {
 
         return image;
     }
+
+    public static void deleteLocalImage(Context context, String fileName) {
+        context.deleteFile(fileName);
+    }
 }

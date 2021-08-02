@@ -129,7 +129,25 @@ public class ImageDao {
         contentValues.put(COLUMN_URL, image.getUrl());
         contentValues.put(COLUMN_HDURL, image.getHdUrl());
 
-        return db.insert(TABLE_NAME, null, contentValues);
+        long id = image.getId();
+
+        if (id == 0) {
+            id = db.insert(TABLE_NAME, null, contentValues);
+        }
+        else {
+            contentValues.put(COLUMN_ID, image.getId());
+            db.insert(TABLE_NAME, null, contentValues);
+        }
+
+        db.close();
+
+        return id;
+    }
+
+    public void delete(ImageData image) {
+        final SQLiteDatabase db = dbOpener.getWritableDatabase();
+        db.delete(TABLE_NAME, "id = ?", new String[] { String.valueOf(image.getId()) });
+        db.close();
     }
 
     private class DatabaseOpener extends SQLiteOpenHelper {
