@@ -35,42 +35,7 @@ public class ImageDao {
     }
 
     public ImageData get(long id) {
-        final SQLiteDatabase db = dbOpener.getWritableDatabase();
-
-        Cursor result = db.query(false, TABLE_NAME, COLUMNS,
-                "id = ?", new String[] { String.valueOf(id) }, null, null, null, null);
-
-        ImageData image = null;
-
-        if (result.getCount() > 0) {
-            final int idIndex = result.getColumnIndex(COLUMN_ID);
-            final int dateIndex = result.getColumnIndex(COLUMN_DATE);
-            final int titleIndex = result.getColumnIndex(COLUMN_TITLE);
-            final int explanationIndex = result.getColumnIndex(COLUMN_EXPLANATION);
-            final int urlIndex = result.getColumnIndex(COLUMN_URL);
-            final int hdUrlIndex = result.getColumnIndex(COLUMN_HDURL);
-
-            result.moveToFirst();
-
-            long identifier = result.getLong(idIndex);
-            String date = result.getString(dateIndex);
-            String title = result.getString(titleIndex);
-            String explanation = result.getString(explanationIndex);
-            String url = result.getString(urlIndex);
-            String hdUrl = result.getString(hdUrlIndex);
-
-            image = new ImageData(identifier, date, title, explanation, url, hdUrl);
-
-            String fileName = image.getFileName();
-
-            Bitmap bitmap = ImageUtils.getImageFromLocal(context, fileName);
-            image.setImage(bitmap);
-        }
-
-        result.close();
-        db.close();
-
-        return image;
+        return find("id = ?", String.valueOf(id));
     }
 
     public ImageData find(String whereClause, String... whereArgs) {
