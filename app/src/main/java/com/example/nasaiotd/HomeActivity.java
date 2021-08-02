@@ -1,5 +1,6 @@
 package com.example.nasaiotd;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -36,9 +37,15 @@ public class HomeActivity extends ActivityBase {
 
         if (imageData == null) {
             if (autoDownload) {
+                imageView.setVisibility(View.GONE);
+
                 final SingleImageResult imageResult = new SingleImageResult(image -> {
-                    imageView.setImageBitmap(image.getImage());
+                    if (image.getImage() != null) {
+                        imageView.setImageBitmap(image.getImage());
+                    }
+
                     titleView.setText(image.getTitle());
+                    imageView.setVisibility(View.VISIBLE);
                 });
 
                 final NasaApiQuery nasaApi = new NasaApiQuery(this, imageResult);
@@ -49,7 +56,10 @@ public class HomeActivity extends ActivityBase {
                 final Button downloadTodayButton = findViewById(R.id.DownloadTodayButton);
                 downloadTodayButton.setOnClickListener(v -> {
                     final SingleImageResult imageResult = new SingleImageResult(image -> {
-                        imageView.setImageBitmap(image.getImage());
+                        if (image.getImage() != null) {
+                            imageView.setImageBitmap(image.getImage());
+                        }
+
                         titleView.setText(image.getTitle());
 
                         imageView.setVisibility(View.VISIBLE);
@@ -59,8 +69,6 @@ public class HomeActivity extends ActivityBase {
                     final NasaApiQuery nasaApi = new NasaApiQuery(this, imageResult);
                     nasaApi.execute(today);
                 });
-
-                downloadTodayButton.setVisibility(View.VISIBLE);
             }
         }
         else {
@@ -74,6 +82,19 @@ public class HomeActivity extends ActivityBase {
 
     @Override
     protected void showHelp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        String message = "View today's image of the day!\n\n"
+         + "If auto download today's image is disabled in settings, "
+         + "A button will be available to manually download today's image.";
+
+        builder
+            .setTitle(R.string.HelpTitle)
+            .setMessage(message)
+            .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
+
+            })
+            .create()
+            .show();
     }
 }

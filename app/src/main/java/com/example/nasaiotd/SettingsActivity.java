@@ -46,8 +46,6 @@ public class SettingsActivity extends ActivityBase {
             DeleteCachedImagesButtonClicked(deleteCachedImagesButton);
             deleteDatabase(ImageDao.DATABASE_NAME);
         });
-
-        updateImagesCount();
     }
 
     private void DeleteCachedImagesButtonClicked(View view) {
@@ -64,30 +62,6 @@ public class SettingsActivity extends ActivityBase {
                 }
             }
         }
-
-        updateImagesCount();
-    }
-
-    private void updateImagesCount() {
-        File directory = getFilesDir();
-
-        int count = 0;
-
-        for (File file : directory.listFiles()) {
-            if (file.isFile()) {
-                String fileExtension = MimeTypeMap.getFileExtensionFromUrl(file.getAbsolutePath());
-
-                for (String extension : IMAGE_TYPES) {
-                    if (fileExtension.equalsIgnoreCase(extension)) {
-                        count++;
-                        break;
-                    }
-                }
-            }
-        }
-
-        TextView cachedImageCount = findViewById(R.id.SettingsCachedImageCount);
-        cachedImageCount.setText(String.valueOf(count));
     }
 
     @Override

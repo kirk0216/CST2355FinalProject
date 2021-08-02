@@ -149,28 +149,16 @@ public class GetImageActivity extends ActivityBase {
     protected void showHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Enter a date into the input field in YYYY-MM-DD format.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Press ");
-        stringBuilder.append(getResources().getString(R.string.SelectDateButtonText));
-        stringBuilder.append(" to show a calendar for selecting a date.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Press ");
-        stringBuilder.append(getResources().getString(R.string.FetchImageButtonText));
-        stringBuilder.append(" to fetch the image for the selected date.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Click on an image to go to its details.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Long click on an image to delete it.");
+        String message = "Enter a date into the input field in YYYY-MM-DD format.\n\n"
+            + "Press " + getResources().getString(R.string.SelectDateButtonText)
+            + " to show a calendar for selecting a date.\n\n"
+            + "Press " + getResources().getString(R.string.FetchImageButtonText) + " to fetch the image for the selected date.\n\n"
+            + "Click on an image to go to its details.\n\n"
+            + "Long click on an image to delete it.";
 
         builder
                 .setTitle(R.string.HelpTitle)
-                .setMessage(stringBuilder.toString())
+                .setMessage(message)
                 .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
 
                 })
