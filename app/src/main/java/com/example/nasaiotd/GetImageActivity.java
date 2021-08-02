@@ -91,7 +91,7 @@ public class GetImageActivity extends ActivityBase {
             startActivity(intent);
         });
 
-        SharedPreferences preferences =
+        final SharedPreferences preferences =
             getSharedPreferences(getString(R.string.Preferences), Context.MODE_PRIVATE);
         final String lastDate = preferences
             .getString(getString(R.string.SavedDateKey), ImageUtils.getCurrentDateString());

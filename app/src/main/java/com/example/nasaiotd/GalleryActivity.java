@@ -52,6 +52,7 @@ public class GalleryActivity extends ActivityBase {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 ImageDetailsFragment detailsFragment = new ImageDetailsFragment();
+                detailsFragment.setArguments(detailsBundle);
 
                 transaction.replace(R.id.DetailsFrame, detailsFragment);
                 transaction.commit();
