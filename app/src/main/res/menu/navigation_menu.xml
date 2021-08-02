@@ -8,7 +8,7 @@
         android:title="@string/NavigationHomeText" />
 
     <item android:id="@+id/NavigationGetImageItem"
-        android:icon="@drawable/home"
+        android:icon="@drawable/download"
         android:title="@string/NavigationGetImageText" />
 
     <item android:id="@+id/NavigationGalleryItem"

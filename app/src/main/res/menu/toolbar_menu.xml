@@ -16,7 +16,7 @@
 
     <item android:id="@+id/ToolbarGetImage"
         android:title="@string/ToolbarGetImageText"
-        android:icon="@drawable/home"
+        android:icon="@drawable/download"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 
