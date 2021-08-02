@@ -34,9 +34,11 @@ public class ImageDetailsFragment extends Fragment {
         final ImageDao imageDao = new ImageDao(view.getContext());
         ImageData imageData = imageDao.get(id);
 
-        ImageView image = view.findViewById(R.id.ImageDetailsImage);
-        Bitmap bitmap = imageData.getImage();
-        image.setImageBitmap(bitmap);
+        if (imageData.getImage() != null) {
+            ImageView image = view.findViewById(R.id.ImageDetailsImage);
+            Bitmap bitmap = imageData.getImage();
+            image.setImageBitmap(bitmap);
+        }
 
         TextView dateText = view.findViewById(R.id.ImageDetailsDate);
         dateText.setText(imageData.getDate());
@@ -58,6 +60,8 @@ public class ImageDetailsFragment extends Fragment {
             hdUrlText.setOnClickListener(v -> {
                 openInBrowser(imageData.getHdUrl());
             });
+
+            hdUrlText.setVisibility(View.VISIBLE);
         }
 
         TextView explanationText = view.findViewById(R.id.ImageDetailsExplanation);

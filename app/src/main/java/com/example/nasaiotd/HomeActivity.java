@@ -64,7 +64,10 @@ public class HomeActivity extends ActivityBase {
             }
         }
         else {
-            imageView.setImageBitmap(imageData.getImage());
+            if (imageData.getImage() != null) {
+                imageView.setImageBitmap(imageData.getImage());
+            }
+
             titleView.setText(imageData.getTitle());
         }
     }

@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 style="?android:progressBarStyleHorizontal"
                 android:visibility="gone"
-                android:id="@+id/SelectDateProgressBar" />
+                android:id="@+id/DownloadProgressBar" />
 
             <ListView
                 android:layout_width="match_parent"

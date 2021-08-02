@@ -86,8 +86,10 @@ public class ImagesAdapter extends BaseAdapter implements ImageDataContainer {
 
         View view = layoutInflater.inflate(layoutResourceId, parent, false);
 
-        ImageView imageImage = view.findViewById(R.id.ImageListItemImage);
-        imageImage.setImageBitmap(imageData.getImage());
+        if (imageData.getImage() != null) {
+            ImageView imageImage = view.findViewById(R.id.ImageListItemImage);
+            imageImage.setImageBitmap(imageData.getImage());
+        }
 
         TextView imageDate = view.findViewById(R.id.ImageDate);
         if (imageDate != null) {

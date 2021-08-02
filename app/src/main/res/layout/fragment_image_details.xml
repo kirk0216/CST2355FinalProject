@@ -18,13 +18,20 @@
             android:minHeight="200dp"
             android:maxHeight="200dp"
             android:minWidth="200dp"
-            android:maxWidth="200dp" />
+            android:maxWidth="200dp"
+            android:src="@drawable/noimage" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ImageDetailsTitle"
-            android:textSize="16dp"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ImageDetailsDate"
             android:textAlignment="center" />
 
         <ScrollView
@@ -39,22 +46,23 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ImageDetailsDate" />
+                    android:id="@+id/ImageDetailsUrl"
+                    android:textColor="@color/link"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ImageDetailsUrl" />
+                    android:id="@+id/ImageDetailsHdUrl"
+                    android:textColor="@color/link"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ImageDetailsHdUrl" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ImageDetailsExplanation" />
+                    android:id="@+id/ImageDetailsExplanation"
+                    android:layout_marginTop="15dp" />
             </LinearLayout>
         </ScrollView>
 

@@ -17,7 +17,8 @@
             android:layout_alignParentTop="true"
             android:scaleType="center"
             android:adjustViewBounds="true"
-            android:id="@+id/ImageListItemImage"/>
+            android:id="@+id/ImageListItemImage"
+            android:src="@drawable/noimage_sm" />
     </FrameLayout>
 
 

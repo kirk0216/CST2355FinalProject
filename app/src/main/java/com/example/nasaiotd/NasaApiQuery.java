@@ -57,7 +57,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
     public NasaApiQuery(Activity context, ImageDataContainer imageDataContainer) {
         this.context = context;
-        this.progressBar = context.findViewById(R.id.SelectDateProgressBar);
+        this.progressBar = context.findViewById(R.id.DownloadProgressBar);
         this.imageDataContainer = imageDataContainer;
         this.imagesDao = new ImageDao(context);
     }
