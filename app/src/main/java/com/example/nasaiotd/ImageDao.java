@@ -21,6 +21,11 @@ public class ImageDao {
     private static final String COLUMN_URL = "url";
     private static final String COLUMN_HDURL = "hdUrl";
 
+    private static final String[] COLUMNS = {
+            COLUMN_ID, COLUMN_DATE, COLUMN_TITLE, COLUMN_EXPLANATION,
+            COLUMN_URL, COLUMN_HDURL
+    };
+
     private final Context context;
     private final DatabaseOpener dbOpener;
 
@@ -32,13 +37,47 @@ public class ImageDao {
     public ImageData get(long id) {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
 
-        final String[] columns = {
-                COLUMN_ID, COLUMN_DATE, COLUMN_TITLE, COLUMN_EXPLANATION,
-                COLUMN_URL, COLUMN_HDURL
-        };
-
-        Cursor result = db.query(false, TABLE_NAME, columns,
+        Cursor result = db.query(false, TABLE_NAME, COLUMNS,
                 "id = ?", new String[] { String.valueOf(id) }, null, null, null, null);
+
+        ImageData image = null;
+
+        if (result.getCount() > 0) {
+            final int idIndex = result.getColumnIndex(COLUMN_ID);
+            final int dateIndex = result.getColumnIndex(COLUMN_DATE);
+            final int titleIndex = result.getColumnIndex(COLUMN_TITLE);
+            final int explanationIndex = result.getColumnIndex(COLUMN_EXPLANATION);
+            final int urlIndex = result.getColumnIndex(COLUMN_URL);
+            final int hdUrlIndex = result.getColumnIndex(COLUMN_HDURL);
+
+            result.moveToFirst();
+
+            long identifier = result.getLong(idIndex);
+            String date = result.getString(dateIndex);
+            String title = result.getString(titleIndex);
+            String explanation = result.getString(explanationIndex);
+            String url = result.getString(urlIndex);
+            String hdUrl = result.getString(hdUrlIndex);
+
+            image = new ImageData(identifier, date, title, explanation, url, hdUrl);
+
+            String fileName = image.getFileName();
+
+            Bitmap bitmap = ImageUtils.getImageFromLocal(context, fileName);
+            image.setImage(bitmap);
+        }
+
+        result.close();
+        db.close();
+
+        return image;
+    }
+
+    public ImageData find(String whereClause, String... whereArgs) {
+        final SQLiteDatabase db = dbOpener.getWritableDatabase();
+
+        Cursor result = db.query(false, TABLE_NAME, COLUMNS,
+                whereClause, whereArgs, null, null, null, null);
 
         ImageData image = null;
 
@@ -76,16 +115,10 @@ public class ImageDao {
     public List<ImageData> load() {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
 
-        final String[] columns = {
-                COLUMN_ID, COLUMN_DATE, COLUMN_TITLE, COLUMN_EXPLANATION,
-                COLUMN_URL, COLUMN_HDURL
-        };
-
-        Cursor result = db.query(false, TABLE_NAME, columns,
+        Cursor result = db.query(false, TABLE_NAME, COLUMNS,
                 null, null, null, null, null, null);
 
         List<ImageData> imageList = new ArrayList<ImageData>();
-        ImageData image = null;
 
         if (result.getCount() > 0) {
             final int idIndex = result.getColumnIndex(COLUMN_ID);
@@ -103,7 +136,7 @@ public class ImageDao {
                 String url = result.getString(urlIndex);
                 String hdUrl = result.getString(hdUrlIndex);
 
-                image = new ImageData(identifier, date, title, explanation, url, hdUrl);
+                ImageData image = new ImageData(identifier, date, title, explanation, url, hdUrl);
                 imageList.add(image);
 
                 String fileName = image.getFileName();

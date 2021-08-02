@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CST2335FinalProject">
-        <activity android:name=".GalleryActivity"></activity>
+        <activity android:name=".GetImageActivity" />
+        <activity android:name=".GalleryActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ImageDetailsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

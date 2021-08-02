@@ -1,11 +1,6 @@
 package com.example.nasaiotd;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
@@ -14,24 +9,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends ActivityBase {
+public class GetImageActivity extends ActivityBase {
 
     private static final String LOG_TAG = "NASA_MAIN";
 
@@ -45,9 +34,9 @@ public class MainActivity extends ActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_get_image);
 
-        setupNavigation(R.string.MainTitle);
+        setupNavigation(R.string.GetImageTitle);
 
         final ImageDao imageDao = new ImageDao(this);
         List<ImageData> images = imageDao.load();
@@ -96,7 +85,7 @@ public class MainActivity extends ActivityBase {
             Bundle detailsBundle = new Bundle();
             detailsBundle.putLong("id", imageData.getId());
 
-            Intent intent = new Intent(MainActivity.this, ImageDetailsActivity.class);
+            Intent intent = new Intent(GetImageActivity.this, ImageDetailsActivity.class);
             intent.putExtras(detailsBundle);
 
             startActivity(intent);
@@ -105,7 +94,7 @@ public class MainActivity extends ActivityBase {
         SharedPreferences preferences =
             getSharedPreferences(getString(R.string.Preferences), Context.MODE_PRIVATE);
         final String lastDate = preferences
-            .getString(getString(R.string.SavedDateKey), getCurrentDateString());
+            .getString(getString(R.string.SavedDateKey), ImageUtils.getCurrentDateString());
 
         EditText dateInput = findViewById(R.id.DateInput);
         dateInput.setText(lastDate);
@@ -139,18 +128,6 @@ public class MainActivity extends ActivityBase {
             NasaApiQuery query = new NasaApiQuery(this, imagesAdapter);
             query.execute(date);
         });
-    }
-
-    /**
-     * @return The current date in "YYYY-MM-DD" format.
-     */
-    private String getCurrentDateString() {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        return String.format("%d-%02d-%02d", year, month + 1, day);
     }
 
     /**

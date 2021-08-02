@@ -5,6 +5,7 @@
     <!-- Non-UI Strings -->
     <string name="Preferences" translatable="false">com.example.nasaiotd.PREFERENCES</string>
     <string name="SavedDateKey" translatable="false">LAST_DATE</string>
+    <string name="AutoDownloadKey" translatable="false">AUTO_DOWNLOAD</string>
 
     <string name="SelectDateButtonText">Select Date</string>
     <string name="FetchImageButtonText">Fetch Image Data</string>
@@ -18,6 +19,7 @@
 
     <!-- Navigation Menu -->
     <string name="NavigationHomeText">Home</string>
+    <string name="NavigationGetImageText">Get Image</string>
     <string name="NavigationGalleryText">Gallery</string>
     <string name="NavigationSettingsText">Settings</string>
     <string name="NavigationOpen">Open</string>
@@ -25,22 +27,29 @@
 
     <!-- Toolbar Items -->
     <string name="ToolbarHomeText">Home</string>
+    <string name="ToolbarGetImageText">Get Image</string>
     <string name="ToolbarGalleryText">Gallery</string>
     <string name="ToolbarSettingsText">Settings</string>
     <string name="ToolbarHelpText">Help</string>
 
     <!-- Toolbar Titles -->
-    <string name="MainTitle">Home</string>
+    <string name="HomeTitle">Home</string>
+    <string name="GetImageTitle">Get Image</string>
     <string name="GalleryTitle">Gallery</string>
     <string name="DetailsTitle">Image Details</string>
     <string name="SettingsTitle">Settings</string>
 
     <!-- Help Dialog -->
     <string name="HelpTitle">Help</string>
-    <string name="HelpOkay">Ok</string>
+    <string name="HelpOkay">OK</string>
 
     <!-- Settings -->
     <string name="SettingsCachedImageCountLabel">Cached Images Count: </string>
     <string name="SettingsDeleteCachedImagesText">Delete Cached Images</string>
     <string name="SettingsDeleteSavedDataText">Delete Saved Data</string>
+    <string name="SettingsAutoDownloadTodayText">Automatically download today\'s image?</string>
+
+    <!-- Home -->
+    <string name="HomeBannerText">Today\'s Image</string>
+    <string name="HomeDownloadTodayButtonText">Download Today\'s Image</string>
 </resources>

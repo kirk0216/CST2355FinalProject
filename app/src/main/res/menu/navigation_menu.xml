@@ -7,6 +7,10 @@
         android:icon="@drawable/home"
         android:title="@string/NavigationHomeText" />
 
+    <item android:id="@+id/NavigationGetImageItem"
+        android:icon="@drawable/home"
+        android:title="@string/NavigationGetImageText" />
+
     <item android:id="@+id/NavigationGalleryItem"
         android:icon="@drawable/gallery"
         android:title="@string/NavigationGalleryText" />

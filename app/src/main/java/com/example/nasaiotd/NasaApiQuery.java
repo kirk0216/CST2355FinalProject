@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
-import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +45,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
      * Reference to the progress bar associated with this request, so the UI can be updated.
      */
     private final ProgressBar progressBar;
-    private final ImagesAdapter imagesAdapter;
+    private final ImageDataContainer imageDataContainer;
     /**
      * Reference to ImageDao object used to persist image data to a database.
      */
@@ -57,10 +55,10 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
      */
     private String errorMessage;
 
-    public NasaApiQuery(Activity context, ImagesAdapter imagesAdapter) {
+    public NasaApiQuery(Activity context, ImageDataContainer imageDataContainer) {
         this.context = context;
         this.progressBar = context.findViewById(R.id.SelectDateProgressBar);
-        this.imagesAdapter = imagesAdapter;
+        this.imageDataContainer = imageDataContainer;
         this.imagesDao = new ImageDao(context);
     }
 
@@ -178,8 +176,10 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
         int progress = values[0];
 
-        progressBar.setProgress(progress);
-        progressBar.setVisibility(ProgressBar.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setProgress(progress);
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
 
         Log.v(LOG_TAG, "Progress: " + progress);
     }
@@ -192,10 +192,9 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
             long id = imagesDao.save(imageData);
             imageData.setId(id);
 
-            imagesAdapter.add(imageData);
-            imagesAdapter.notifyDataSetChanged();
-        }
-        else {
+            imageDataContainer.add(imageData);
+            imageDataContainer.notifyDataSetChanged();
+        } else {
             Log.i(LOG_TAG, "ImageData was not set: " + errorMessage);
 
             if (errorMessage == null) {
@@ -207,7 +206,9 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
                     .show();
         }
 
-        progressBar.setVisibility(ProgressBar.GONE);
+        if (progressBar != null) {
+            progressBar.setVisibility(ProgressBar.GONE);
+        }
     }
 
     /**

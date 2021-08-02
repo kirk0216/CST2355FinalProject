@@ -15,6 +15,7 @@
 
     <!-- Navigation Menu -->
     <string name="NavigationHomeText">Accueil</string>
+    <string name="NavigationGetImageText">Obtenir une image</string>
     <string name="NavigationGalleryText">Galerie</string>
     <string name="NavigationSettingsText">Paramètres</string>
     <string name="NavigationOpen">Ouvert</string>
@@ -22,12 +23,14 @@
 
     <!-- Toolbar Items -->
     <string name="ToolbarHomeText">Accueil</string>
+    <string name="ToolbarGetImageText">Obtenir une image</string>
     <string name="ToolbarGalleryText">Galerie</string>
     <string name="ToolbarSettingsText">Paramètres</string>
     <string name="ToolbarHelpText">Aide</string>
 
     <!-- Toolbar Titles -->
-    <string name="MainTitle">Accueil</string>
+    <string name="HomeTitle">Écran d\'accueil</string>
+    <string name="GetImageTitle">Obtenir une image</string>
     <string name="GalleryTitle">Galerie</string>
     <string name="DetailsTitle">Détails de l\'image</string>
     <string name="SettingsTitle">Paramètres</string>
@@ -40,4 +43,9 @@
     <string name="SettingsCachedImageCountLabel">Nombre d\'images mises en cache: </string>
     <string name="SettingsDeleteCachedImagesText">Supprimer les images mises en cache</string>
     <string name="SettingsDeleteSavedDataText">Supprimer les données enregistrées</string>
+    <string name="SettingsAutoDownloadTodayText">Télécharger automatiquement l\'image du jour ?</string>
+
+    <!-- Home -->
+    <string name="HomeBannerText">L\'image d\'aujourd\'hui</string>
+    <string name="HomeDownloadTodayButtonText">Télécharger l\'image du jour</string>
 </resources>

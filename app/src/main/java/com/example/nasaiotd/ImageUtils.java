@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 public final class ImageUtils {
     /**
@@ -15,10 +16,9 @@ public final class ImageUtils {
      */
     public static Bitmap getImageFromLocal(Context context, String fileName) {
         Bitmap image = null;
-        FileInputStream inputStream = null;
 
         try {
-            inputStream = context.openFileInput(fileName);
+            FileInputStream inputStream = context.openFileInput(fileName);
             image = BitmapFactory.decodeStream(inputStream);
         }
         catch (IOException e) {
@@ -26,5 +26,17 @@ public final class ImageUtils {
         }
 
         return image;
+    }
+
+    /**
+     * @return The current date in "YYYY-MM-DD" format.
+     */
+    public static String getCurrentDateString() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        return String.format("%d-%02d-%02d", year, month + 1, day);
     }
 }

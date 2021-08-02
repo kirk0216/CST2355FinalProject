@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Implementation of BaseAdapter used to provide a list of ImageData objects to a ListView.
  */
-public class ImagesAdapter extends BaseAdapter {
+public class ImagesAdapter extends BaseAdapter implements ImageDataContainer {
 
     private final LayoutInflater layoutInflater;
     private final int layoutResourceId;

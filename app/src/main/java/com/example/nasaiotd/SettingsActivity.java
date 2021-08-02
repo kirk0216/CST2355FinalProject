@@ -1,9 +1,12 @@
 package com.example.nasaiotd;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +23,20 @@ public class SettingsActivity extends ActivityBase {
         setContentView(R.layout.activity_settings);
 
         setupNavigation(R.string.SettingsTitle);
+
+        final SharedPreferences sharedPreferences =
+                getSharedPreferences(getString(R.string.Preferences), Context.MODE_PRIVATE);
+
+        final SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+
+        final CheckBox autoDownloadTodayCheck = findViewById(R.id.SettingsAutoDownloadToday);
+        boolean autoDownload = sharedPreferences.getBoolean(getString(R.string.AutoDownloadKey), true);
+        autoDownloadTodayCheck.setChecked(autoDownload);
+
+        autoDownloadTodayCheck.setOnCheckedChangeListener((view, isChecked) -> {
+            preferencesEditor.putBoolean(getString(R.string.AutoDownloadKey), isChecked);
+            preferencesEditor.apply();
+        });
 
         final Button deleteCachedImagesButton = findViewById(R.id.SettingsDeleteCachedImages);
         deleteCachedImagesButton.setOnClickListener(this::DeleteCachedImagesButtonClicked);

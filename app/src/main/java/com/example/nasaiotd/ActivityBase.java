@@ -59,7 +59,11 @@ public abstract class ActivityBase extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.ToolbarHome:
                 Log.i(LOG_TAG, "Navigating to Home via Toolbar.");
-                intent = new Intent(ActivityBase.this, MainActivity.class);
+                intent = new Intent(ActivityBase.this, HomeActivity.class);
+                break;
+            case R.id.ToolbarGetImage:
+                Log.i(LOG_TAG, "Navigating to GetImage via Toolbar.");
+                intent = new Intent(ActivityBase.this, GetImageActivity.class);
                 break;
             case R.id.ToolbarGallery:
                 Log.i(LOG_TAG, "Navigating to Gallery via Toolbar.");
@@ -91,7 +95,12 @@ public abstract class ActivityBase extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.NavigationHomeItem:
                 Log.i(LOG_TAG, "Navigating to Home via NavigationView.");
-                intent = new Intent(ActivityBase.this, MainActivity.class);
+                intent = new Intent(ActivityBase.this, HomeActivity.class);
+                break;
+
+            case R.id.NavigationGetImageItem:
+                Log.i(LOG_TAG, "Navigating to GetImage via NavigationView.");
+                intent = new Intent(ActivityBase.this, GetImageActivity.class);
                 break;
 
             case R.id.NavigationGalleryItem:
