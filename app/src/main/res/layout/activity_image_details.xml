@@ -10,7 +10,6 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:id="@+id/MainToolBar"
         app:title="@string/DetailsTitle"
         tools:openDrawer="start" />
@@ -21,60 +20,10 @@
         android:id="@+id/MainNavigationDrawer"
         tools:openDrawer="start">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ImageDetailsImage"
-                android:minHeight="200dp"
-                android:maxHeight="200dp"
-                android:minWidth="200dp"
-                android:maxWidth="200dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ImageDetailsTitle"
-                android:textSize="16dp"
-                android:textAlignment="center" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ImageDetailsDate" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ImageDetailsUrl" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ImageDetailsHdUrl" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ImageDetailsExplanation" />
-                </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
+            android:id="@+id/DetailsFrame" />
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"

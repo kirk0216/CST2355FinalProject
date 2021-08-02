@@ -90,11 +90,7 @@ public class MainActivity extends ActivityBase {
             ImageData imageData = (ImageData) imagesAdapter.getItem(position);
 
             Bundle detailsBundle = new Bundle();
-            detailsBundle.putString("date", imageData.getDate());
-            detailsBundle.putString("title", imageData.getTitle());
-            detailsBundle.putString("url", imageData.getUrl());
-            detailsBundle.putString("hdUrl", imageData.getHdUrl());
-            detailsBundle.putString("explanation", imageData.getExplanation());
+            detailsBundle.putLong("id", imageData.getId());
 
             Intent intent = new Intent(MainActivity.this, ImageDetailsActivity.class);
             intent.putExtras(detailsBundle);

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.util.ArrayList;
@@ -26,6 +27,50 @@ public class ImageDao {
     public ImageDao(Context context) {
         this.context = context;
         dbOpener = new DatabaseOpener(context);
+    }
+
+    public ImageData get(long id) {
+        final SQLiteDatabase db = dbOpener.getWritableDatabase();
+
+        final String[] columns = {
+                COLUMN_ID, COLUMN_DATE, COLUMN_TITLE, COLUMN_EXPLANATION,
+                COLUMN_URL, COLUMN_HDURL
+        };
+
+        Cursor result = db.query(false, TABLE_NAME, columns,
+                "id = ?", new String[] { String.valueOf(id) }, null, null, null, null);
+
+        ImageData image = null;
+
+        if (result.getCount() > 0) {
+            final int idIndex = result.getColumnIndex(COLUMN_ID);
+            final int dateIndex = result.getColumnIndex(COLUMN_DATE);
+            final int titleIndex = result.getColumnIndex(COLUMN_TITLE);
+            final int explanationIndex = result.getColumnIndex(COLUMN_EXPLANATION);
+            final int urlIndex = result.getColumnIndex(COLUMN_URL);
+            final int hdUrlIndex = result.getColumnIndex(COLUMN_HDURL);
+
+            result.moveToFirst();
+
+            long identifier = result.getLong(idIndex);
+            String date = result.getString(dateIndex);
+            String title = result.getString(titleIndex);
+            String explanation = result.getString(explanationIndex);
+            String url = result.getString(urlIndex);
+            String hdUrl = result.getString(hdUrlIndex);
+
+            image = new ImageData(identifier, date, title, explanation, url, hdUrl);
+
+            String fileName = image.getFileName();
+
+            Bitmap bitmap = ImageUtils.getImageFromLocal(context, fileName);
+            image.setImage(bitmap);
+        }
+
+        result.close();
+        db.close();
+
+        return image;
     }
 
     public List<ImageData> load() {
@@ -84,9 +129,7 @@ public class ImageDao {
         contentValues.put(COLUMN_URL, image.getUrl());
         contentValues.put(COLUMN_HDURL, image.getHdUrl());
 
-        long id = db.insert(TABLE_NAME, null, contentValues);
-
-        return id;
+        return db.insert(TABLE_NAME, null, contentValues);
     }
 
     private class DatabaseOpener extends SQLiteOpenHelper {

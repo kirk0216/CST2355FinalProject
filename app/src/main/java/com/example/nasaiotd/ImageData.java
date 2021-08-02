@@ -1,6 +1,7 @@
 package com.example.nasaiotd;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**
@@ -98,8 +99,6 @@ public class ImageData {
     public String getFileName() {
         String url = getUrl();
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        String fileName = getDate() + "." + extension;
-
-        return fileName;
+        return getDate() + "." + extension;
     }
 }

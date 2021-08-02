@@ -2,9 +2,13 @@ package com.example.nasaiotd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -14,10 +18,17 @@ public class GalleryActivity extends ActivityBase {
 
     private ImagesAdapter imagesAdapter;
 
+    private boolean isTablet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        FrameLayout detailsFrame = findViewById(R.id.DetailsFrame);
+        isTablet = (detailsFrame != null);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         setupNavigation(R.string.GalleryTitle);
 
@@ -34,16 +45,21 @@ public class GalleryActivity extends ActivityBase {
             ImageData imageData = (ImageData) imagesAdapter.getItem(position);
 
             Bundle detailsBundle = new Bundle();
-            detailsBundle.putString("date", imageData.getDate());
-            detailsBundle.putString("title", imageData.getTitle());
-            detailsBundle.putString("url", imageData.getUrl());
-            detailsBundle.putString("hdUrl", imageData.getHdUrl());
-            detailsBundle.putString("explanation", imageData.getExplanation());
+            detailsBundle.putLong("id", imageData.getId());
 
-            Intent intent = new Intent(GalleryActivity.this, ImageDetailsActivity.class);
-            intent.putExtras(detailsBundle);
+            if (isTablet) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            startActivity(intent);
+                ImageDetailsFragment detailsFragment = new ImageDetailsFragment();
+
+                transaction.replace(R.id.DetailsFrame, detailsFragment);
+                transaction.commit();
+            } else {
+                Intent intent = new Intent(GalleryActivity.this, ImageDetailsActivity.class);
+                intent.putExtras(detailsBundle);
+
+                startActivity(intent);
+            }
         });
 
         gridView.setOnItemLongClickListener((list, view, position, id) -> {
