@@ -3,6 +3,9 @@ package com.example.nasaiotd;
 import android.util.Log;
 import android.widget.ImageView;
 
+/**
+ * A ImageDataContainer that holds a single ImageData instance.
+ */
 public class SingleImageResult implements ImageDataContainer {
     private static final String LOG_TAG = "NASA_IMAGE_RESULT";
 

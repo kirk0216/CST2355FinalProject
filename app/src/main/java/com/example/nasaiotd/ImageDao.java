@@ -10,23 +10,59 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used to access and manage ImageData instances that are stored in a database.
+ */
 public class ImageDao {
+    /**
+     * The name of the database file that will be used.
+     */
     public static final String DATABASE_NAME = "NasaIotdDatabase";
 
+    /**
+     * The name of the table that contains images.
+     */
     private static final String TABLE_NAME = "IMAGE";
+    /**
+     * The name of the column that stores the id.
+     */
     private static final String COLUMN_ID = "id";
+    /**
+     * The name of the column that stores the date.
+     */
     private static final String COLUMN_DATE = "date";
+    /**
+     * The name of the column that stores the title.
+     */
     private static final String COLUMN_TITLE = "title";
+    /**
+     * The name of the column that stores the explanation.
+     */
     private static final String COLUMN_EXPLANATION = "explanation";
+    /**
+     * The name of the column that stores the URL.
+     */
     private static final String COLUMN_URL = "url";
+    /**
+     * The name of the column that stores the HD URL.
+     */
     private static final String COLUMN_HDURL = "hdUrl";
 
+    /**
+     * An array containing all column names.
+     */
     private static final String[] COLUMNS = {
             COLUMN_ID, COLUMN_DATE, COLUMN_TITLE, COLUMN_EXPLANATION,
             COLUMN_URL, COLUMN_HDURL
     };
 
+    /**
+     * Context object used to access the database.
+     */
     private final Context context;
+    /**
+     * Helper class for opening database connections.
+     */
     private final DatabaseOpener dbOpener;
 
     public ImageDao(Context context) {
@@ -34,10 +70,21 @@ public class ImageDao {
         dbOpener = new DatabaseOpener(context);
     }
 
+    /**
+     * Locates and returns an ImageData object from the database based on id.
+     * @param id The id of the ImageData object.
+     * @return ImageData instance.
+     */
     public ImageData get(long id) {
         return find("id = ?", String.valueOf(id));
     }
 
+    /**
+     * Locates and returns an ImageData object based on the provided filter.
+     * @param whereClause The SQL WHERE clause used to filter the objects.
+     * @param whereArgs Arguments to be provided for SQL parameters in the WHERE clause.
+     * @return ImageData instance.
+     */
     public ImageData find(String whereClause, String... whereArgs) {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
 
@@ -77,6 +124,10 @@ public class ImageDao {
         return image;
     }
 
+    /**
+     * Loads all ImageData instances from the database.
+     * @return List of ImageData instances.
+     */
     public List<ImageData> load() {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
 
@@ -117,6 +168,11 @@ public class ImageDao {
         return imageList;
     }
 
+    /**
+     * Saves an ImageData instance to the database.
+     * @param image The ImageData instance to save.
+     * @return The id returned from SQLite for the saved instance.
+     */
     public long save(ImageData image) {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
 
@@ -142,6 +198,10 @@ public class ImageDao {
         return id;
     }
 
+    /**
+     * Deletes an ImageData instance from the database.
+     * @param image The ImageData instance to be deleted.
+     */
     public void delete(ImageData image) {
         final SQLiteDatabase db = dbOpener.getWritableDatabase();
         db.delete(TABLE_NAME, "id = ?", new String[] { String.valueOf(image.getId()) });
@@ -150,6 +210,9 @@ public class ImageDao {
 
     private class DatabaseOpener extends SQLiteOpenHelper {
 
+        /**
+         * The current version of the database.
+         */
         private static final int DATABASE_VERSION = 1;
 
         public DatabaseOpener(Context context) {
