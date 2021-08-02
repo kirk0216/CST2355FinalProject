@@ -10,7 +10,6 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:id="@+id/MainToolBar"
         app:title="@string/GalleryTitle"
         tools:openDrawer="start" />
@@ -26,11 +25,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/GalleryGrid"
-            android:numColumns="auto_fit"
+            android:numColumns="4"
             android:verticalSpacing="4dp"
-            android:padding="5dp">
-
-        </GridView>
+            android:padding="5dp" />
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"

@@ -1,21 +1,12 @@
 package com.example.nasaiotd;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.app.AlertDialog;
 
 import java.io.File;
 
@@ -30,11 +21,38 @@ public class SettingsActivity extends ActivityBase {
 
         setupNavigation(R.string.SettingsTitle);
 
+        final Button deleteCachedImagesButton = findViewById(R.id.SettingsDeleteCachedImages);
+        deleteCachedImagesButton.setOnClickListener(this::DeleteCachedImagesButtonClicked);
+
+        final Button deleteSavedDataButton = findViewById(R.id.SettingsDeleteSavedData);
+        deleteSavedDataButton.setOnClickListener(v -> {
+            DeleteCachedImagesButtonClicked(deleteCachedImagesButton);
+            deleteDatabase(ImageDao.DATABASE_NAME);
+        });
+
+        updateImagesCount();
+    }
+
+    private void DeleteCachedImagesButtonClicked(View view) {
+        File directory = getFilesDir();
+
+        for (File file : directory.listFiles()) {
+            if (file.isFile()) {
+                String fileExtension = MimeTypeMap.getFileExtensionFromUrl(file.getAbsolutePath());
+
+                for (String extension : IMAGE_TYPES) {
+                    if (fileExtension.equalsIgnoreCase(extension)) {
+                        file.delete();
+                    }
+                }
+            }
+        }
+
         updateImagesCount();
     }
 
     private void updateImagesCount() {
-        File directory = getBaseContext().getFilesDir();
+        File directory = getFilesDir();
 
         int count = 0;
 
@@ -70,12 +88,12 @@ public class SettingsActivity extends ActivityBase {
         stringBuilder.append(" to delete all saved data (including cached images).");
 
         builder
-                .setTitle(R.string.HelpTitle)
-                .setMessage(stringBuilder.toString())
-                .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
+            .setTitle(R.string.HelpTitle)
+            .setMessage(stringBuilder.toString())
+            .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
 
-                })
-                .create()
-                .show();
+            })
+            .create()
+            .show();
     }
 }

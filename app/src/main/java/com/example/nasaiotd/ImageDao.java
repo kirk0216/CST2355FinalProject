@@ -6,13 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
-import android.util.Log;
-import android.webkit.MimeTypeMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageDao {
+    public static final String DATABASE_NAME = "NasaIotdDatabase";
+
     private static final String TABLE_NAME = "IMAGE";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_DATE = "date";
@@ -152,7 +152,6 @@ public class ImageDao {
 
     private class DatabaseOpener extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "NasaIotdDatabase";
         private static final int DATABASE_VERSION = 1;
 
         public DatabaseOpener(Context context) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -38,10 +39,10 @@ public class GalleryActivity extends ActivityBase {
         imagesAdapter = new ImagesAdapter(getLayoutInflater(), R.layout.gallery_item);
         imagesAdapter.addRange(images);
 
-        GridView gridView = findViewById(R.id.GalleryGrid);
-        gridView.setAdapter(imagesAdapter);
+        GridView galleryList = findViewById(R.id.GalleryGrid);
+        galleryList.setAdapter(imagesAdapter);
 
-        gridView.setOnItemClickListener((list, view, position, id) -> {
+        galleryList.setOnItemClickListener((list, view, position, id) -> {
             ImageData imageData = (ImageData) imagesAdapter.getItem(position);
 
             Bundle detailsBundle = new Bundle();
@@ -62,7 +63,7 @@ public class GalleryActivity extends ActivityBase {
             }
         });
 
-        gridView.setOnItemLongClickListener((list, view, position, id) -> {
+        galleryList.setOnItemLongClickListener((list, view, position, id) -> {
             ImageData image = (ImageData)imagesAdapter.getItem(position);
 
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -76,7 +77,7 @@ public class GalleryActivity extends ActivityBase {
                         imagesAdapter.notifyDataSetChanged();
 
                         Snackbar
-                                .make(gridView, image.getTitle() + " deleted.", Snackbar.LENGTH_SHORT)
+                                .make(galleryList, image.getTitle() + " deleted.", Snackbar.LENGTH_SHORT)
                                 .setAction(R.string.ImageListDeleteUndo, v -> {
                                     imagesAdapter.insertAt(position, image);
                                     imagesAdapter.notifyDataSetChanged();
