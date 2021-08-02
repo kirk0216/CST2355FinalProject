@@ -17,7 +17,7 @@ public class ImagesAdapter extends BaseAdapter {
 
     private final LayoutInflater layoutInflater;
     private final int layoutResourceId;
-    private static final List<ImageData> images = new ArrayList<ImageData>();
+    private final List<ImageData> images = new ArrayList<ImageData>();
 
     public ImagesAdapter(LayoutInflater layoutInflater, int layoutResourceId) {
         this.layoutInflater = layoutInflater;
@@ -30,6 +30,16 @@ public class ImagesAdapter extends BaseAdapter {
      */
     public void add(ImageData image) {
         images.add(image);
+    }
+
+    /**
+     * Merges a list of ImageData objects into this images collection.
+     * @param list The list of ImageData objects to add.
+     */
+    public void addRange(List<ImageData> list) {
+        for (ImageData image : list) {
+            add(image);
+        }
     }
 
     /**
@@ -61,6 +71,12 @@ public class ImagesAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
+        ImageData image = images.get(position);
+
+        if (image != null){
+            return image.getId();
+        }
+
         return (long)position;
     }
 

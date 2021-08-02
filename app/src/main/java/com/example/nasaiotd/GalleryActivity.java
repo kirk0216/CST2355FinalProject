@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 public class GalleryActivity extends ActivityBase {
 
     private ImagesAdapter imagesAdapter;
@@ -19,7 +21,11 @@ public class GalleryActivity extends ActivityBase {
 
         setupNavigation(R.string.GalleryTitle);
 
+        final ImageDao imagesDao = new ImageDao(this);
+        List<ImageData> images = imagesDao.load();
+
         imagesAdapter = new ImagesAdapter(getLayoutInflater(), R.layout.gallery_item);
+        imagesAdapter.addRange(images);
 
         GridView gridView = findViewById(R.id.GalleryGrid);
         gridView.setAdapter(imagesAdapter);

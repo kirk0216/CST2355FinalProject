@@ -26,6 +26,8 @@ public class ImageDetailsActivity extends ActivityBase {
 
         setupNavigation(R.string.DetailsTitle);
 
+        ImageDao dao = new ImageDao(this);
+
         Bundle data = getIntent().getExtras();
         String urlString = data.getString("url");
         String hdUrlString = data.getString("hdUrl");

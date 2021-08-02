@@ -2,6 +2,10 @@
     <string name="AppName">NASA Image of the Day</string>
     <string name="AppVersion">Version 1.0</string>
 
+    <!-- Non-UI Strings -->
+    <string name="Preferences" translatable="false">com.example.nasaiotd.PREFERENCES</string>
+    <string name="SavedDateKey" translatable="false">LAST_DATE</string>
+
     <string name="SelectDateButtonText">Select Date</string>
     <string name="FetchImageButtonText">Fetch Image Data</string>
 

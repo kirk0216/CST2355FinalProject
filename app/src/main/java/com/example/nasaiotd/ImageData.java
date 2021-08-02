@@ -1,11 +1,17 @@
 package com.example.nasaiotd;
 
 import android.graphics.Bitmap;
+import android.webkit.MimeTypeMap;
 
 /**
  * Represents a NASA Image of the Day entry.
  */
 public class ImageData {
+    /**
+     * The database identifier for this object.
+     */
+    private long id;
+
     /**
      * The date the image was the Image of the Day.
      */
@@ -42,6 +48,20 @@ public class ImageData {
         this.hdUrl = hdUrl;
     }
 
+    public ImageData(long id, String date, String title, String explanation, String url, String hdUrl) {
+        this(date, title, explanation, url, hdUrl);
+
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getDate() {
         return date;
     }
@@ -68,5 +88,18 @@ public class ImageData {
 
     public String getHdUrl() {
         return hdUrl;
+    }
+
+    /**
+     * Returns the file name, including extension, where this file is saved locally.
+     * Credit: https://stackoverflow.com/a/49690119
+     * @return The path to the locally saved file.
+     */
+    public String getFileName() {
+        String url = getUrl();
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        String fileName = getDate() + "." + extension;
+
+        return fileName;
     }
 }

@@ -49,6 +49,10 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
     private final ProgressBar progressBar;
     private final ImagesAdapter imagesAdapter;
     /**
+     * Reference to ImageDao object used to persist image data to a database.
+     */
+    private final ImageDao imagesDao;
+    /**
      * A string containing any error messages, so the user can be advised of errors.
      */
     private String errorMessage;
@@ -57,6 +61,7 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         this.context = context;
         this.progressBar = context.findViewById(R.id.SelectDateProgressBar);
         this.imagesAdapter = imagesAdapter;
+        this.imagesDao = new ImageDao(context);
     }
 
     @Override
@@ -184,6 +189,9 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
         super.onPostExecute(imageData);
 
         if (imageData != null) {
+            long id = imagesDao.save(imageData);
+            imageData.setId(id);
+
             imagesAdapter.add(imageData);
             imagesAdapter.notifyDataSetChanged();
         }
@@ -217,31 +225,11 @@ public class NasaApiQuery extends AsyncTask<String, Integer, ImageData> {
 
         if (fileExists(fileName)) {
             Log.i(LOG_TAG, "Loading " + fileName + " from local storage.");
-            image = getImageFromLocal(fileName);
+            image = ImageUtils.getImageFromLocal(context, fileName);
         }
         else {
             Log.i(LOG_TAG, "Loading " + fileName + " from remote source.");
             image = getImageFromRemote(urlString, fileName);
-        }
-
-        return image;
-    }
-
-    /**
-     * Retrieves an image from the local file system.
-     * @param fileName The name of the saved image file.
-     * @return Bitmap image.
-     */
-    private Bitmap getImageFromLocal(String fileName) {
-        Bitmap image = null;
-        FileInputStream inputStream = null;
-
-        try {
-            inputStream = context.openFileInput(fileName);
-            image = BitmapFactory.decodeStream(inputStream);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
         }
 
         return image;

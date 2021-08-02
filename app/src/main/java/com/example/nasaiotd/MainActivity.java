@@ -10,7 +10,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends ActivityBase {
 
@@ -46,7 +49,11 @@ public class MainActivity extends ActivityBase {
 
         setupNavigation(R.string.MainTitle);
 
+        final ImageDao imageDao = new ImageDao(this);
+        List<ImageData> images = imageDao.load();
+
         imagesAdapter = new ImagesAdapter(getLayoutInflater(), R.layout.imagelist_item);
+        imagesAdapter.addRange(images);
 
         ListView imagesList = findViewById(R.id.ImageList);
         imagesList.setAdapter(imagesAdapter);
@@ -95,8 +102,13 @@ public class MainActivity extends ActivityBase {
             startActivity(intent);
         });
 
+        SharedPreferences preferences =
+            getSharedPreferences(getString(R.string.Preferences), Context.MODE_PRIVATE);
+        final String lastDate = preferences
+            .getString(getString(R.string.SavedDateKey), getCurrentDateString());
+
         EditText dateInput = findViewById(R.id.DateInput);
-        dateInput.setText(getCurrentDateString());
+        dateInput.setText(lastDate);
 
         Button selectDateButton = findViewById(R.id.SelectDateButton);
         selectDateButton.setOnClickListener(v -> {
@@ -116,6 +128,13 @@ public class MainActivity extends ActivityBase {
         fetchImageButton.setOnClickListener(v -> {
             String date = dateInput.getText().toString();
             hideKeyboard();
+
+            SharedPreferences.Editor editor =
+                getSharedPreferences(getString(R.string.Preferences), Context.MODE_PRIVATE)
+                    .edit();
+
+            editor.putString(getString(R.string.SavedDateKey), date)
+                .apply();
 
             NasaApiQuery query = new NasaApiQuery(this, imagesAdapter);
             query.execute(date);
