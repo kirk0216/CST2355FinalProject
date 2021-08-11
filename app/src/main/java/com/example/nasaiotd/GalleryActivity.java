@@ -100,20 +100,15 @@ public class GalleryActivity extends ActivityBase {
     @Override
     protected void showHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Click on an image to go to its details.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Long click on an image to delete it.");
+        String message = getString(R.string.GalleryHelpText);
 
         builder
-                .setTitle(R.string.HelpTitle)
-                .setMessage(stringBuilder.toString())
-                .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
+            .setTitle(R.string.HelpTitle)
+            .setMessage(message)
+            .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
 
-                })
-                .create()
-                .show();
+            })
+            .create()
+            .show();
     }
 }

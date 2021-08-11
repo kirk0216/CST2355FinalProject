@@ -67,20 +67,11 @@ public class SettingsActivity extends ActivityBase {
     @Override
     protected void showHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Press ");
-        stringBuilder.append(getResources().getString(R.string.SettingsDeleteCachedImagesText));
-        stringBuilder.append(" to delete all cached images.");
-        stringBuilder.append("\n\n");
-
-        stringBuilder.append("Press ");
-        stringBuilder.append(getResources().getString(R.string.SettingsDeleteSavedDataText));
-        stringBuilder.append(" to delete all saved data (including cached images).");
+        String message = getString(R.string.SettingsHelpText);
 
         builder
             .setTitle(R.string.HelpTitle)
-            .setMessage(stringBuilder.toString())
+            .setMessage(message)
             .setPositiveButton(R.string.HelpOkay, (click, arg) -> {
 
             })

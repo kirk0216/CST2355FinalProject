@@ -43,6 +43,56 @@
     <string name="HelpTitle">Help</string>
     <string name="HelpOkay">OK</string>
 
+    <string name="HomeHelpText">
+        View today\'s image of the day!
+        \n\n
+        If auto download today\'s image is disabled in settings, a button will be available
+        to manually download today\'s image.
+    </string>
+
+    <string name="GalleryHelpText">
+        Click on an image to go to its details.
+        \n\n
+        Long click on an image to delete it.
+    </string>
+
+    <string name="GetImageHelpText">
+        Enter a date into the input field in YYYY-MM-DD format.
+        \n\n
+        Press Select Date to show a calendar for selecting a date.
+        \n\n
+        Press Fetch Image Data to fetch the image for the selected date.
+        \n\n
+        Click on an image to go to its details.
+        \n\n
+        Long click on an image to delete it.
+    </string>
+
+    <string name="ImageDetailsHelpText">
+        Details about the selected image are provided
+        \n\n
+        - Image title
+        \n\n
+        - Date it was the image of the day
+        \n\n
+        - URL for the image
+        \n\n
+        - URL for a high-quality version of the image (if available)
+        \n\n
+        - Explanation of the image
+        \n\n
+        The URL and HD URL can be clicked to open the image in your browser.
+    </string>
+
+    <string name="SettingsHelpText">
+        Press Delete Cached Images to delete all cached images.
+        \n\n
+        Press Delete Saved Data to delete all saved data (including cached images).
+        \n\n
+        Check Automatically download today\'s image to enable or disable the automatic
+        downloading of today\'s image on the home page.
+    </string>
+
     <!-- Settings -->
     <string name="SettingsCachedImageCountLabel">Cached Images Count: </string>
     <string name="SettingsDeleteCachedImagesText">Delete Cached Images</string>

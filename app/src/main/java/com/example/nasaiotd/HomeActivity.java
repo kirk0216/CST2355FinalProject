@@ -83,10 +83,7 @@ public class HomeActivity extends ActivityBase {
     @Override
     protected void showHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        String message = "View today's image of the day!\n\n"
-         + "If auto download today's image is disabled in settings, "
-         + "A button will be available to manually download today's image.";
+        String message = getString(R.string.HomeHelpText);
 
         builder
             .setTitle(R.string.HelpTitle)

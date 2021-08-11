@@ -39,6 +39,57 @@
     <string name="HelpTitle">Aide</string>
     <string name="HelpOkay">D\'accord</string>
 
+    <string name="HomeHelpText">
+        Voir l\'image du jour d\'aujourd\'hui !
+        \n\n
+        Si le téléchargement automatique de l\'image d\'aujourd\'hui est désactivé dans les
+        paramètres, un bouton sera disponible pour télécharger manuellement l\'image d\'aujourd\'hui.
+    </string>
+
+    <string name="GalleryHelpText">
+        Cliquez sur une image pour accéder à ses détails.
+        \n\n
+        Cliquez longuement sur une image pour la supprimer.
+    </string>
+
+    <string name="GetImageHelpText">
+        Entrez une date dans le champ de saisie au format AAAA-MM-JJ.
+        \n\n
+        Appuyez sur Sélectionner une date pour afficher un calendrier permettant de sélectionner une date.
+        \n\n
+        Appuyez sur Extraire les données d\'image pour extraire l\'image de la date sélectionnée.
+        \n\n
+        Cliquez sur une image pour accéder à ses détails.
+        \n\n
+        Cliquez longuement sur une image pour la supprimer.
+    </string>
+
+    <string name="ImageDetailsHelpText">
+        Des détails sur l\'image sélectionnée sont fournis
+        \n\n
+        - Titre de l\'image
+        \n\n
+        - Date c\'était l\'image du jour
+        \n\n
+        - URL de l\'image
+        \n\n
+        - URL pour une version de haute qualité de l\'image (si disponible)
+        \n\n
+        - Explication de l\'image
+        \n\n
+        L\'URL et l\'URL HD peuvent être cliqués pour ouvrir l\'image dans votre navigateur.
+    </string>
+
+    <string name="SettingsHelpText">
+        Appuyez sur Nombre d\'images mises en cache pour supprimer toutes les images mises en cache.
+        \n\n
+        Appuyez sur Supprimer les données enregistrées pour supprimer toutes les données enregistrées
+        (y compris les images mises en cache).
+        \n\n
+        Cochez Télécharger automatiquement l\'image d\'aujourd\'hui pour activer ou désactiver le
+        téléchargement de l\'image d\'aujourd\'hui sur la page d\'accueil.
+    </string>
+
     <!-- Settings -->
     <string name="SettingsCachedImageCountLabel">Nombre d\'images mises en cache: </string>
     <string name="SettingsDeleteCachedImagesText">Supprimer les images mises en cache</string>

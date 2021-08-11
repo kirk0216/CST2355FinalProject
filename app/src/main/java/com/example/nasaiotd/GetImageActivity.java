@@ -148,13 +148,7 @@ public class GetImageActivity extends ActivityBase {
     @Override
     protected void showHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        String message = "Enter a date into the input field in YYYY-MM-DD format.\n\n"
-            + "Press " + getResources().getString(R.string.SelectDateButtonText)
-            + " to show a calendar for selecting a date.\n\n"
-            + "Press " + getResources().getString(R.string.FetchImageButtonText) + " to fetch the image for the selected date.\n\n"
-            + "Click on an image to go to its details.\n\n"
-            + "Long click on an image to delete it.";
+        String message = getString(R.string.GetImageHelpText);
 
         builder
                 .setTitle(R.string.HelpTitle)
