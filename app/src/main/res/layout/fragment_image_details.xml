@@ -11,15 +11,19 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <ImageView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImageDetailsImage"
-            android:minHeight="200dp"
-            android:maxHeight="200dp"
-            android:minWidth="200dp"
-            android:maxWidth="200dp"
-            android:src="@drawable/noimage" />
+            android:layout_height="300dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ImageDetailsImage"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/noimage" />
+        </FrameLayout>
+
 
         <TextView
             android:layout_width="match_parent"
