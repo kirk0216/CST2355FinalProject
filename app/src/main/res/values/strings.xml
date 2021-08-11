@@ -8,7 +8,7 @@
     <string name="AutoDownloadKey" translatable="false">AUTO_DOWNLOAD</string>
 
     <string name="SelectDateButtonText">Select Date</string>
-    <string name="FetchImageButtonText">Fetch Image Data</string>
+    <string name="FetchImageButtonText">Download Image</string>
 
     <string name="DateInputHint">YYYY-MM-DD</string>
 
